@@ -43,6 +43,8 @@ def create_app(config_class):
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     jwt = JWTManager(app)
+
+    
     
     # Section to add api endpoints to app
     api.add_resource(notification.Notification, '/api/notification/')
@@ -93,6 +95,10 @@ def create_app(config_class):
 
 
 app = create_app(config.Config)
+
+@app.route("/")
+def health_check():
+    return "Backend alive", 200
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
