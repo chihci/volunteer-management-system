@@ -90,15 +90,19 @@ def create_app(config_class):
     api.add_resource(eventreport.EventStatisticsAPI, '/api/events/statistics')
     api.add_resource(eventreport.VolunteerPerformanceAPI, '/api/events/volunteer-performance')
 
+    @app.route("/")
+    def health_check():
+      return "Backend alive", 200
+
+
     return app
 
 
 
 app = create_app(config.Config)
+   
 
-@app.route("/")
-def health_check():
-    return "Backend alive", 200
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
